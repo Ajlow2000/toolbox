@@ -1,4 +1,4 @@
 (executable
  (public_name git_audit)
  (name main)
- (libraries git_audit))
+ (libraries lib))

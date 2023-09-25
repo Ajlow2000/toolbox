@@ -1,2 +1,2 @@
 (library
- (name git_audit))
+ (name lib))
