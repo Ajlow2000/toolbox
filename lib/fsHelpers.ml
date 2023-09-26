@@ -9,7 +9,7 @@ let dir_is_empty dir =
  * contained in [dir]. Each file is a path starting with [dir].
   *)
 let dir_contents dir =
-    let rec loop result = function
+    let rec loop result worklist = match worklist with
         | f::fs when Sys.is_directory f ->
             Sys.readdir f
             |> Array.to_list
@@ -22,3 +22,21 @@ let dir_contents dir =
     loop [] [dir]
 ;;
 
+let dir_contents_fast dir =
+    let rec add_contents accu filename =
+        if Sys.is_directory filename then
+            Sys.readdir filename
+            |> Array.map (Filename.concat filename)
+            |> Array.fold_left add_contents accu
+        else filename :: accu
+    in add_contents [] dir
+;;
+
+            (* match filename with *)
+            (* | ".git" -> filename :: accu *)
+            (* | _ -> Array.fold_left add_contents accu *)
+let git_dirs dir =
+    let rec add_contents accu filename =
+        if Sys.is_directory filename then
+            match Sys.readdir
+    in add_contents [] dir
