@@ -1,15 +1,16 @@
+open Core
 open Lib.FsHelpers
+(* open Cmdliner *)
+open Sys_unix
 
-let target_dir =
-  match Sys.getenv_opt "HOME" with
-  | Some v -> v
-  | None -> "./"
+let target_dir = match Sys.getenv "HOME" with
+    | Some v -> v
+    | None -> "./"
 ;;
 
-let git_repos =
-  match Sys.file_exists target_dir with
-  | true -> git_dirs target_dir
-  | false -> []
+let repos = match file_exists target_dir with
+    | `Yes -> git_dirs target_dir
+    | _ -> []
 ;;
 
-let () = List.iter print_endline git_repos
+let () = List.iter repos ~f: print_endline
