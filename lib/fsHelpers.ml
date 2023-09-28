@@ -5,10 +5,13 @@
 *)
 let git_dirs dir =
     let rec add_contents accu filename =
-        match Filename.basename filename with
-        | ".git" -> Filename.dirname filename :: accu
-        | _ when Sys.is_directory filename -> Sys.readdir filename
-            |> Array.map (Filename.concat filename)
-            |> Array.fold_left add_contents accu
-        | _ -> accu
+        match Sys.file_exists filename with
+        | false -> accu
+        | true -> 
+            match Filename.basename filename with
+            | ".git" -> Filename.dirname filename :: accu
+            | _ when Sys.is_directory filename -> Sys.readdir filename
+                |> Array.map (Filename.concat filename)
+                |> Array.fold_left add_contents accu
+            | _ -> accu
     in add_contents [] dir
