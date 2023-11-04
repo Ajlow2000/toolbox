@@ -1,18 +1,29 @@
+open Core
+open Sys_unix
+
 (** [git_dir] recursively searches through a specificied
-    [dir] and returns a the paths to all directories
-    that contain a .git/ subdir. *)
-let git_dirs dir =
-  let rec add_contents accu filename =
-    match Sys.file_exists filename with
-    | true ->
-      (match Filename.basename filename with
-       | ".git" -> Filename.dirname filename :: accu
-       | _ when Sys.is_directory filename ->
-         Sys.readdir filename
-         |> Array.map (Filename.concat filename)
-         |> Array.fold_left add_contents accu
-       | _ -> accu)
-    | false -> accu
+    [target_dir] and returns a the paths to all directories
+    that contain a .git/ subdir. while ignoring all paths
+    specified by [ignore]*)
+let git_dirs target_dir ~ignore =
+  let rec add_contents accu f =
+    match file_exists f with
+    | `Unknown | `No -> accu
+    | `Yes ->
+      (match
+         List.mem ignore (Filename.dirname f ^ Filename.basename f) ~equal:String.equal
+       with
+       | true -> accu
+       | false ->
+         (match Filename.basename f with
+          | ".git" -> Filename.dirname f :: accu
+          | _ ->
+            (match is_directory f with
+             | `Yes ->
+               readdir f
+               |> Array.map ~f:(Filename.concat f)
+               |> Array.fold ~f:add_contents ~init:accu
+             | _ -> accu)))
   in
-  add_contents [] dir
+  add_contents [] target_dir
 ;;
