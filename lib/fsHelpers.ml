@@ -10,7 +10,6 @@ let git_dirs target_dir ~ignore =
     match file_exists f with
     | `Unknown | `No -> accu
     | `Yes ->
-      (* printf "%s\n" f; *)
       (match List.mem ignore f ~equal:String.equal with
        | true -> accu
        | false ->

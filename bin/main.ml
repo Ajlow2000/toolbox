@@ -15,11 +15,10 @@ let ignore =
   [ "/home/ajlow/.local/share"; "/home/ajlow/.zplug"; "home/ajlow/.nix-defexpr" ]
 ;;
 
-let () = printf "Target Dir: %s\n-------------------\n" target_dir
-
 let repos =
+  printf "Target Dir: %s\n-------------------\n" target_dir;
   match file_exists target_dir with
-  | `Yes -> git_dirs target_dir ~ignore
+  | `Yes -> git_dirs target_dir ~ignore:ignore
   | _ -> []
 ;;
 
