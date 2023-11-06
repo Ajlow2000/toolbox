@@ -25,3 +25,7 @@ let git_dirs target_dir ~ignore =
   in
   add_contents [] target_dir
 ;;
+
+(** [git_status] runs the git status command on the specified
+    [path]*)
+let git_status path = Core_unix.system ("git -C" ^ path ^ "status")

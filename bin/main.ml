@@ -1,9 +1,8 @@
 open Core
 open Printf
 open Lib.FsHelpers
-
-(* open Cmdliner *)
 open Sys_unix
+(* open Cmdliner *)
 
 let target_dir =
   match Sys.getenv "HOME" with
@@ -22,4 +21,13 @@ let repos =
   | _ -> []
 ;;
 
-let () = List.iter repos ~f:print_endline
+let print_entry path = 
+    let width = Core_unix.system "tput cols" in
+    let rec string n s =
+        if n = 0 then "" else s ^ string (n - 1) s
+    in
+    printf "%s\n" (string (width / 2) "<>");
+    printf "%s\n" path;
+    printf "%s\n\n" "- - - - - - - - - - - - - - - - - - - -"
+
+let () = List.iter repos ~f:print_entry
