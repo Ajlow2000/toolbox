@@ -1,0 +1,4 @@
+(library
+ (name lib)
+ (libraries core core_unix core_unix.sys_unix)
+ (ocamlopt_flags -S))

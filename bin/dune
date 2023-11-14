@@ -1,0 +1,5 @@
+(executable
+ (public_name git_audit)
+ (name main)
+ (libraries lib core core_unix core_unix.sys_unix cmdliner)
+ (ocamlopt_flags -S))
