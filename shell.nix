@@ -17,6 +17,14 @@ let
   goEnv = mkGoEnv { pwd = ./.; };
 in
 pkgs.mkShell {
+  buildInputs = with pkgs; [
+    go
+    gopls
+    gotools
+    go-tools
+    # gomod2nix.packages.${system}.default
+    gomod2nix
+  ];
   packages = [
     goEnv
     gomod2nix
