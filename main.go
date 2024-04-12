@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
+    "github.com/Ajlow2000/git-audit/cmd"
 )
 
 func main() {
-	fmt.Println("Howdy Mom")
+    cmd.Execute()
 }
