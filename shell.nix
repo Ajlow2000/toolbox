@@ -22,6 +22,7 @@ pkgs.mkShell {
     gopls
     gotools
     go-tools
+    cobra-cli
     # gomod2nix.packages.${system}.default
     gomod2nix
   ];
