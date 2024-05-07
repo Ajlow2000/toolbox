@@ -33,7 +33,7 @@ func init() {
     rootCmd.AddCommand(misc.MiscCmd)
 
     // Flags
-    rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "enable debugging for any nested tool")
+    rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "enable debugging")
 }
 
 
