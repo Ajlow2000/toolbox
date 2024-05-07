@@ -20,4 +20,5 @@ var MiscCmd = &cobra.Command{
 
 func init() {
     MiscCmd.AddCommand(printPathCmd)
+    MiscCmd.AddCommand(printEnvironCmd)
 }

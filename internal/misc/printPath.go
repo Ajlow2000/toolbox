@@ -1,5 +1,5 @@
 package misc
 
 func main()  {
-    println("Print Path under development")
+    println("Print Path INTERNAL under development")
 }
