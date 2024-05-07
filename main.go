@@ -7,5 +7,5 @@ package main
 import "github.com/Ajlow2000/toolbox/cmd"
 
 func main() {
-	cmd.Exeute()
+	cmd.Exekjdfute()
 }
