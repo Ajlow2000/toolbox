@@ -13,7 +13,7 @@
 }:
 
 buildGoApplication {
-  pname = "git-audit";
+  pname = "toolbox";
   version = "0.1";
   pwd = ./.;
   src = ./.;

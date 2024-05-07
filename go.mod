@@ -1,4 +1,4 @@
-module github.com/Ajlow2000/git-audit
+module github.com/Ajlow2000/toolbox
 
 go 1.17
 

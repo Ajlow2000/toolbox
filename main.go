@@ -1,11 +1,9 @@
 /*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
+Copyright © 2024 Alec Lowry ajlow2000@gmail.com
 */
 package main
 
-import "github.com/Ajlow2000/git-audit/cmd"
 
 func main() {
-	cmd.Execute()
+    println("Howdy mom")
 }
