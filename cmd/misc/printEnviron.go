@@ -1,11 +1,7 @@
-/*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-*/
 package misc
 
 import (
-	"os"
-
+	"github.com/Ajlow2000/toolbox/internal/misc"
 	"github.com/spf13/cobra"
 )
 
@@ -14,10 +10,7 @@ var printEnvironCmd = &cobra.Command{
 	Short: "Prints current environment variables on newlines",
 	Long: `Prints current environment variables on newlines`,
 	Run: func(cmd *cobra.Command, args []string) {
-        for _, env := range os.Environ() {
-            println(env)
-        }
-
+        misc.PrintEnviron()
 	},
 }
 
