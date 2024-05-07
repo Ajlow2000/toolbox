@@ -1,9 +1,11 @@
 /*
-Copyright © 2024 Alec Lowry ajlow2000@gmail.com
+Copyright © 2024 Alec Lowry @Ajlow2000
+
 */
 package main
 
+import "github.com/Ajlow2000/toolbox/cmd"
 
 func main() {
-    println("Howdy mom")
+	cmd.Execute()
 }
