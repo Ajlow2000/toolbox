@@ -1,11 +1,9 @@
-/*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
 	"os"
 
+	"github.com/Ajlow2000/toolbox/cmd/git"
 	"github.com/Ajlow2000/toolbox/cmd/misc"
 	"github.com/spf13/cobra"
 )
@@ -31,9 +29,7 @@ func Execute() {
 func init() {
     // Commands
     rootCmd.AddCommand(misc.MiscCmd)
-
-    // Flags
-    rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "enable debugging")
+    rootCmd.AddCommand(git.GitCmd)
 }
 
 
