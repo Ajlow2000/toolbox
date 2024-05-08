@@ -3,6 +3,7 @@ package git
 import (
 	"errors"
 	"fmt"
+	"io"
 	"log/slog"
 	"os"
 	"os/user"
@@ -58,12 +59,11 @@ func validateLogPath(logPath string) (string, error) {
 
 // AuditDir takes a string [target] and searches for git repos within the specified path.
 // Generates and outputs a report of the status of found git repositories.
-//
-// By default, logs will print to stderr and lead to very cluttered output. It is suggested
-// to either specify a [logPath] or throw the stderr away. Ie: `audit-dir $HOME 2> /dev/null`
 func AuditDir(target string, logPath string)  {
     // Initialize Logger
-    if logPath == "stderr" {
+    if logPath == "" {
+        slog.SetDefault(slog.New(slog.NewTextHandler(io.Discard, nil)))
+    } else if logPath == "stderr" {
         slog.SetDefault(slog.New(slog.NewTextHandler(os.Stderr, nil)))
     } else {
         logPath, err := validateLogPath(logPath)

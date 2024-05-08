@@ -13,7 +13,7 @@ var (
 var auditDirCmd = &cobra.Command{
 	Use:   "audit-dir",
 	Short: "Generate a report of the status of all git repositories within the specified [dir]",
-	Long: "",
+	Long: "Logging is disabled until a log file is provided via --log-file",
 	Run: func(cmd *cobra.Command, args []string) {
         git.AuditDir(target, logFile)
 	},
@@ -21,5 +21,5 @@ var auditDirCmd = &cobra.Command{
 
 func init() {
     auditDirCmd.Flags().StringVarP(&target, "target-dir", "t", "", "Target directory to search for git repos within")
-    auditDirCmd.Flags().StringVarP(&logFile, "log-file", "f", "stderr", "Path to log file. Defaults to stderr")
+    auditDirCmd.Flags().StringVarP(&logFile, "log-file", "f", "", "Path to log file. Passing 'stderr' prints logs to stderr")
 }
