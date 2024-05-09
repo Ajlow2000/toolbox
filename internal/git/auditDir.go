@@ -8,7 +8,13 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
+	"slices"
 	"time"
+)
+
+var (
+    IGNORE []string
+    GIT_REPOS []string
 )
 
 // isDirectory determines if a file represented
@@ -18,7 +24,6 @@ func isDirectory(path string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-
 	return fileInfo.IsDir(), err
 }
 
@@ -67,20 +72,45 @@ func isGitRepo(dirPath string) (bool, error) {
 
     for _, entry := range entries {
         if entry.IsDir() && entry.Name() == ".git" {
-            fmt.Println("DEBUG:\t" + entry.Name())
             return true, nil 
         }
     }
     return false, nil 
 }
 
-// func recurseInSearchOfGit(entry fs.DirEntry) []fs.DirEntry {
-//
-// }
+func recurseInSearchOfGit(dirPath string) (error) {
+    entries, err := os.ReadDir(dirPath)
+    if err != nil {
+        return err
+    }
+
+    path, err := filepath.Abs(dirPath)
+    if err != nil {
+        return err
+    }
+
+    for _, entry := range entries {
+        if entry.IsDir() {
+            entryPath := filepath.Join(path, entry.Name())
+            isGitRepo, err := isGitRepo(entryPath)
+            if err != nil {
+                return err
+            }
+            if isGitRepo {
+                GIT_REPOS = append(GIT_REPOS, entryPath)
+            } else {
+                if !slices.Contains(IGNORE, dirPath) {
+                    recurseInSearchOfGit(entryPath)
+                }
+            }
+        }
+    }
+    return nil
+}
 
 // AuditDir takes a string [target] and searches for git repos within the specified path.
 // Generates and outputs a report of the status of found git repositories.
-func AuditDir(target string, logPath string)  {
+func AuditDir(target string, logPath string, ignore []string)  {
     // Initialize Logger
     if logPath == "" {
         slog.SetDefault(slog.New(slog.NewTextHandler(io.Discard, nil)))
@@ -102,6 +132,9 @@ func AuditDir(target string, logPath string)  {
         fmt.Println("Initialized logging to: " + logPath)
         slog.SetDefault(slog.New(slog.NewJSONHandler(logFile, nil)))
     }
+
+    // Set globals
+    IGNORE = ignore
 
     // Validate target
     if target == "" {
@@ -132,25 +165,35 @@ func AuditDir(target string, logPath string)  {
         slog.Error(err.Error())
         return
     }
-    entries, err := os.ReadDir(target)
-    if err != nil {
-        slog.Error(err.Error())
-        return
-    }
-    for _, entry := range entries {
-        if entry.IsDir() {
-            dirPath := filepath.Join(path, entry.Name())
-            isGitRepo, err := isGitRepo(dirPath)
-            if err != nil {
-                slog.Error(err.Error())
-                return
-            }
-            if isGitRepo {
-                fmt.Println(dirPath) // change to collection 
-            } else {
-                // recurse
+    if !slices.Contains(IGNORE, target) {
+        entries, err := os.ReadDir(target)
+        if err != nil {
+            slog.Error(err.Error())
+            return
+        }
+        for _, entry := range entries {
+            if entry.IsDir() {
+                dirPath := filepath.Join(path, entry.Name())
+                isGitRepo, err := isGitRepo(dirPath)
+                if err != nil {
+                    slog.Error(err.Error())
+                    return
+                }
+                if isGitRepo {
+                    GIT_REPOS = append(GIT_REPOS, dirPath)
+                } else {
+                    // recurse
+                    if !slices.Contains(IGNORE, dirPath) {
+                        recurseInSearchOfGit(dirPath)
+                    }
+                }
             }
         }
+    }
+
+    fmt.Println("Found the following repos:")
+    for _, element := range GIT_REPOS {
+        fmt.Println(element)
     }
 
     
