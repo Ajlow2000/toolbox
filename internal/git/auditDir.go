@@ -10,21 +10,31 @@ import (
 	"path/filepath"
 	"slices"
 	"time"
+
+	"github.com/go-git/go-git/v5"
 )
+
 
 var (
     IGNORE []string
     GIT_REPOS []string
 )
 
+type gitInfo struct {
+    LocalPath   string
+    RemoteURL   string
+    IsDirty       bool
+    Status      string
+}
+
 // isDirectory determines if a file represented
 // by `path` is a directory or not
-func isDirectory(path string) (bool, error) {
+func isDirectory(path string) bool {
 	fileInfo, err := os.Stat(path)
 	if err != nil {
-		return false, err
+		return false
 	}
-	return fileInfo.IsDir(), err
+	return fileInfo.IsDir()
 }
 
 
@@ -36,10 +46,7 @@ func validateTarget(target string) error {
         }
         target = userHome
     } else {
-        validDir, err := isDirectory(target)
-        if err != nil {
-            return err
-        }
+        validDir := isDirectory(target)
         if !validDir {
             return errors.New("'" + target + "' is not a valid direcotry")
         }
@@ -49,7 +56,7 @@ func validateTarget(target string) error {
 }
 
 func validateLogPath(logPath string) (string, error) {
-    if isDir, _ := isDirectory(logPath); isDir {
+    if isDir := isDirectory(logPath); isDir {
         standardFileName := time.Now().UTC().Format("2006-01-02")
         standardFileName = standardFileName + ".json"
         logPath = filepath.Join(logPath, standardFileName)
@@ -106,6 +113,22 @@ func recurseInSearchOfGit(dirPath string) (error) {
         }
     }
     return nil
+}
+
+func collectGitInfo(path string) (gitInfo, error)  {
+    if (isDirectory(path)) {
+        // git config --get remote.origin.url
+
+        info := gitInfo{
+        	LocalPath: path,
+        	RemoteURL: "",
+        	IsDirty:   false,
+        	Status:    "",
+        }
+        return info, nil
+    } else {
+        return errors.New("Error collecting git info.  Provided path is not a directory.")
+    }
 }
 
 // AuditDir takes a string [target] and searches for git repos within the specified path.
@@ -191,10 +214,10 @@ func AuditDir(target string, logPath string, ignore []string)  {
         }
     }
 
-    fmt.Println("Found the following repos:")
-    for _, element := range GIT_REPOS {
-        fmt.Println(element)
-    }
+    // fmt.Println("Found the following repos:")
+    // for _, element := range GIT_REPOS {
+    //     fmt.Println(element)
+    // }
 
     
     fmt.Println("Succesfully completed")

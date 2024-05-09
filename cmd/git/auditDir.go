@@ -24,7 +24,7 @@ var auditDirCmd = &cobra.Command{
 }
 
 func init() {
-    auditDirCmd.Flags().StringVarP(&target, "target-dir", "t", "", "Target directory to search for git repos within")
+    auditDirCmd.Flags().StringVarP(&target, "target-dir", "t", "", "Target directory to search for git repos within. Defaults to $HOME")
     auditDirCmd.Flags().StringVarP(&logFile, "log-file", "f", "", "Path to log file. Passing 'stderr' prints logs to stderr")
     auditDirCmd.Flags().StringVarP(&ignore, "ignore-dirs", "i", "", "Provide a ':' deliminated list of paths to ignore")
 }
