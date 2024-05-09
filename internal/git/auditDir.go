@@ -57,6 +57,27 @@ func validateLogPath(logPath string) (string, error) {
     return logPath, nil
 }
 
+// Expects an absolute path to a directory and checks if it contains
+// a .git dir indicating that this path is a git repository.
+func isGitRepo(dirPath string) (bool, error) {
+    entries, err := os.ReadDir(dirPath)
+    if err != nil {
+        return false, err
+    }
+
+    for _, entry := range entries {
+        if entry.IsDir() && entry.Name() == ".git" {
+            fmt.Println("DEBUG:\t" + entry.Name())
+            return true, nil 
+        }
+    }
+    return false, nil 
+}
+
+// func recurseInSearchOfGit(entry fs.DirEntry) []fs.DirEntry {
+//
+// }
+
 // AuditDir takes a string [target] and searches for git repos within the specified path.
 // Generates and outputs a report of the status of found git repositories.
 func AuditDir(target string, logPath string)  {
@@ -105,6 +126,33 @@ func AuditDir(target string, logPath string)  {
     username := currentUser.Username
     slog.Info("Beginning an audit of git repositories", slog.Any("target", target), slog.Any("user", username), slog.Any("audit_status", "initialized"))
     fmt.Println("Beginning an audit of git repositories in: " + target)
+
+    path, err := filepath.Abs(target)
+    if err != nil {
+        slog.Error(err.Error())
+        return
+    }
+    entries, err := os.ReadDir(target)
+    if err != nil {
+        slog.Error(err.Error())
+        return
+    }
+    for _, entry := range entries {
+        if entry.IsDir() {
+            dirPath := filepath.Join(path, entry.Name())
+            isGitRepo, err := isGitRepo(dirPath)
+            if err != nil {
+                slog.Error(err.Error())
+                return
+            }
+            if isGitRepo {
+                fmt.Println(dirPath) // change to collection 
+            } else {
+                // recurse
+            }
+        }
+    }
+
     
     fmt.Println("Succesfully completed")
     slog.Info("Concluded audit", slog.Any("target", target), slog.Any("user", username), slog.Any("audit_status", "completed"))
