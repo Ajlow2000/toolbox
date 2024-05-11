@@ -19,12 +19,11 @@ var auditDirCmd = &cobra.Command{
 	Long: "Logging is disabled until a log file is provided via --log-file",
 	Run: func(cmd *cobra.Command, args []string) {
         ignoreList := strings.Split(ignore, ":")
-        git.AuditDir(target, logFile, ignoreList)
+        git.AuditDir(target, ignoreList)
 	},
 }
 
 func init() {
-    auditDirCmd.Flags().StringVarP(&target, "target-dir", "t", "", "Target directory to search for git repos within. Defaults to $HOME")
-    auditDirCmd.Flags().StringVarP(&logFile, "log-file", "f", "", "Path to log file. Passing 'stderr' prints logs to stderr")
+    auditDirCmd.Flags().StringVarP(&target, "target-dir", "t", "$HOME", "Target directory to search for git repos within. Defaults to $HOME")
     auditDirCmd.Flags().StringVarP(&ignore, "ignore-dirs", "i", "", "Provide a ':' deliminated list of paths to ignore")
 }
