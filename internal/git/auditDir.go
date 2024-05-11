@@ -3,26 +3,27 @@ package git
 import (
 	"errors"
 	"fmt"
-	"io"
-	"log/slog"
 	"os"
-	"os/user"
 	"path/filepath"
 	"slices"
-	"time"
+	"strconv"
+	"strings"
+
+	"github.com/go-git/go-git/v5"
 )
 
 
 var (
+    TARGET string
     IGNORE []string
-    GIT_REPOS []string
+    GIT_REPOS []gitInfo
 )
 
 type gitInfo struct {
     LocalPath   string
-    RemoteURL   string
-    IsDirty       bool
-    Status      string
+    RemoteURLs  []string
+    IsClean     bool
+    Status      []string
 }
 
 // isDirectory determines if a file represented
@@ -33,38 +34,6 @@ func isDirectory(path string) bool {
 		return false
 	}
 	return fileInfo.IsDir()
-}
-
-
-func validateTarget(target string) error {
-    if target == "" {
-        userHome, err := os.UserHomeDir()
-        if err != nil {
-            return err
-        }
-        target = userHome
-    } else {
-        validDir := isDirectory(target)
-        if !validDir {
-            return errors.New("'" + target + "' is not a valid direcotry")
-        }
-    }
-    
-    return nil
-}
-
-func validateLogPath(logPath string) (string, error) {
-    if isDir := isDirectory(logPath); isDir {
-        standardFileName := time.Now().UTC().Format("2006-01-02")
-        standardFileName = standardFileName + ".json"
-        logPath = filepath.Join(logPath, standardFileName)
-    } else { // assume logPath is meant to be a file
-        base := filepath.Base(logPath)
-        if filepath.Ext(base) != ".json" {
-            return logPath, errors.New("logPath (" + logPath + ") must be of type '.json'")
-        }
-    }
-    return logPath, nil
 }
 
 // Expects an absolute path to a directory and checks if it contains
@@ -83,6 +52,7 @@ func isGitRepo(dirPath string) (bool, error) {
     return false, nil 
 }
 
+// Recursive helper for scanning git repos
 func recurseInSearchOfGit(dirPath string) (error) {
     entries, err := os.ReadDir(dirPath)
     if err != nil {
@@ -102,7 +72,11 @@ func recurseInSearchOfGit(dirPath string) (error) {
                 return err
             }
             if isGitRepo {
-                GIT_REPOS = append(GIT_REPOS, entryPath)
+                info, err := collectGitInfo(entryPath)
+                if err != nil {
+                    return err
+                }
+                GIT_REPOS = append(GIT_REPOS, info)
             } else {
                 if !slices.Contains(IGNORE, dirPath) {
                     recurseInSearchOfGit(entryPath)
@@ -113,61 +87,73 @@ func recurseInSearchOfGit(dirPath string) (error) {
     return nil
 }
 
+// Build gitInfo from a path to a local repository
 func collectGitInfo(path string) (gitInfo, error)  {
     if !isDirectory(path) {
         return gitInfo{}, errors.New("Error collecting git info.  Provided path is not a directory.")
     } else {
-        // git config --get remote.origin.url
+        repo, err := git.PlainOpen(path)
+        if err != nil {
+            return gitInfo{}, err
+        }
+        config, err := repo.Config()
+        origin := config.Remotes["origin"]
+
+        worktree, err := repo.Worktree()
+        if err != nil {
+            return gitInfo{}, err
+        }
+
+        status, err := worktree.Status()
+        if err != nil {
+            return gitInfo{}, err
+        }
 
         info := gitInfo{
-        	LocalPath: path,
-        	RemoteURL: "",
-        	IsDirty:   false,
-        	Status:    "",
+        	LocalPath:  path,
+        	RemoteURLs: origin.URLs,
+        	IsClean:    status.IsClean(),
+        	Status:     strings.Split(status.String(), "\n"),
         }
         return info, nil
     }
 }
 
+// Print results of this audit to stdout
+func printReport() {
+    fmt.Println("Audit Report for: " + TARGET)
+    fmt.Println()
+    numOfDirtyRepos := 0
+    for _, repo := range GIT_REPOS {
+        var clean string
+        if repo.IsClean {
+            clean = "CLEAN"
+        } else {
+            clean = "DIRTY"
+            numOfDirtyRepos = numOfDirtyRepos + 1
+        }
+        fmt.Println("[" + clean + "] " + repo.LocalPath)
+        if !repo.IsClean {
+            fmt.Println("\tStatus: ")
+            for _, file := range repo.Status {
+                fmt.Println("\t\t" + file)
+            }
+        }
+        fmt.Println()
+    }
+    fmt.Println(strconv.Itoa(numOfDirtyRepos) + " dirty repositories")
+}
+
 // AuditDir takes a string [target] and searches for git repos within the specified path.
 // Generates and outputs a report of the status of found git repositories.
-func AuditDir(target string, logPath string, ignore []string)  {
-    // Initialize Logger
-    if logPath == "" {
-        slog.SetDefault(slog.New(slog.NewTextHandler(io.Discard, nil)))
-    } else if logPath == "stderr" {
-        slog.SetDefault(slog.New(slog.NewTextHandler(os.Stderr, nil)))
-    } else {
-        logPath, err := validateLogPath(logPath)
-        if err != nil {
-            fmt.Println(err.Error())
-            return
-        }
-        logFile, err := os.OpenFile(logPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-        if err != nil {
-            fmt.Println("An error occured when opening '" + logPath + "' in append mode")
-            fmt.Println("\t" + err.Error())
-            return
-        }
-        defer logFile.Close()
-        fmt.Println("Initialized logging to: " + logPath)
-        slog.SetDefault(slog.New(slog.NewJSONHandler(logFile, nil)))
-    }
-
+func AuditDir(target string, ignore []string)  {
     // Validate target
-    if target == "" {
-        var err error
-        target, err = os.UserHomeDir()
-        if err != nil {
-            slog.Error(err.Error())
-        }
-    } else {
-        err := validateTarget(target)
-        if err != nil {
-            slog.Error(err.Error())
-            return
-        }
+    target = os.Expand(target, os.Getenv)
+    if !isDirectory(target) {
+        println("Specified target '" + target + "' is not a valid directory")
+        return
     }
+    TARGET = target
 
     // Expand ignore list envvars and set to global
     for _, p := range ignore {
@@ -175,23 +161,17 @@ func AuditDir(target string, logPath string, ignore []string)  {
     }
 
     // Begin Audit
-    currentUser, err := user.Current()
-    if err != nil {
-        slog.Error(err.Error())
-    }
-    username := currentUser.Username
-    slog.Info("Beginning an audit of git repositories", slog.Any("target", target), slog.Any("user", username), slog.Any("audit_status", "initialized"))
     fmt.Println("Beginning an audit of git repositories in: " + target)
 
     path, err := filepath.Abs(target)
     if err != nil {
-        slog.Error(err.Error())
+        println(err.Error())
         return
     }
     if !slices.Contains(IGNORE, target) {
         entries, err := os.ReadDir(target)
         if err != nil {
-            slog.Error(err.Error())
+            println(err.Error())
             return
         }
         for _, entry := range entries {
@@ -199,13 +179,17 @@ func AuditDir(target string, logPath string, ignore []string)  {
                 dirPath := filepath.Join(path, entry.Name())
                 isGitRepo, err := isGitRepo(dirPath)
                 if err != nil {
-                    slog.Error(err.Error())
+                    println(err.Error())
                     return
                 }
                 if isGitRepo {
-                    GIT_REPOS = append(GIT_REPOS, dirPath)
+                    info, err := collectGitInfo(dirPath)
+                    if err != nil {
+                        println(err.Error())
+                        return
+                    }
+                    GIT_REPOS = append(GIT_REPOS, info)
                 } else {
-                    // recurse
                     if !slices.Contains(IGNORE, dirPath) {
                         recurseInSearchOfGit(dirPath)
                     }
@@ -214,13 +198,6 @@ func AuditDir(target string, logPath string, ignore []string)  {
         }
     }
 
-    fmt.Println("Found the following repos:")
-    for _, element := range GIT_REPOS {
-        fmt.Println(element)
-    }
-
-
-    fmt.Println("Succesfully completed")
-    slog.Info("Concluded audit", slog.Any("target", target), slog.Any("user", username), slog.Any("audit_status", "completed"))
+    printReport()
 }
 
