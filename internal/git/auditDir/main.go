@@ -1,4 +1,4 @@
-package git
+package auditdir
 
 import (
 	"errors"
@@ -144,9 +144,9 @@ func printReport() {
     fmt.Println(strconv.Itoa(numOfDirtyRepos) + " dirty repositories")
 }
 
-// AuditDir takes a string [target] and searches for git repos within the specified path.
+// takes a string [target] and searches for git repos within the specified path.
 // Generates and outputs a report of the status of found git repositories.
-func AuditDir(target string, ignore []string)  {
+func Main(target string, ignore []string)  {
     // Validate target
     target = os.Expand(target, os.Getenv)
     if !isDirectory(target) {

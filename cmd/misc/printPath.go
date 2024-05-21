@@ -1,7 +1,7 @@
 package misc
 
 import (
-	"github.com/Ajlow2000/toolbox/internal/misc"
+	printpath "github.com/Ajlow2000/toolbox/internal/misc/printPath"
 	"github.com/spf13/cobra"
 )
 
@@ -10,7 +10,7 @@ var printPathCmd = &cobra.Command{
 	Short: "Prints entries in $PATH on newlines",
 	Long: "",
 	Run: func(cmd *cobra.Command, args []string) {
-        misc.PrintPath()
+        printpath.Main()
 	},
 }
 
