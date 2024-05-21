@@ -1,10 +1,10 @@
-package misc
+package printenviron
 
 import "os"
 
-// PrintEnviron prints the current environment variables
+// prints the current environment variables
 // on newlines with entries in the format of 'key=val'
-func PrintEnviron()  {
+func Main()  {
     for _, env := range os.Environ() {
         println(env)
     }
