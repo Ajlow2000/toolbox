@@ -3,7 +3,7 @@ package git
 import (
 	"strings"
 
-	"github.com/Ajlow2000/toolbox/internal/git"
+	auditdir "github.com/Ajlow2000/toolbox/internal/git/auditDir"
 	"github.com/spf13/cobra"
 )
 
@@ -19,7 +19,7 @@ var auditDirCmd = &cobra.Command{
 	Long: "Logging is disabled until a log file is provided via --log-file",
 	Run: func(cmd *cobra.Command, args []string) {
         ignoreList := strings.Split(ignore, ":")
-        git.AuditDir(target, ignoreList)
+        auditdir.Main(target, ignoreList)
 	},
 }
 
