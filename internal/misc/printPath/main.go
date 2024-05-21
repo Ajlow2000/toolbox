@@ -1,6 +1,7 @@
 package printpath
 
 import (
+	"fmt"
 	"os"
 	"strings"
 )
@@ -9,6 +10,6 @@ import (
 func Main()  {
     var path = strings.Split(os.Getenv("PATH"), ":")
     for _, entry := range path {
-        println(entry)
+        fmt.Println(entry)
     }
 }
