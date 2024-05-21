@@ -96,8 +96,6 @@ func collectGitInfo(path string) (gitInfo, error)  {
         if err != nil {
             return gitInfo{}, err
         }
-        config, err := repo.Config()
-        origin := config.Remotes["origin"]
 
         worktree, err := repo.Worktree()
         if err != nil {
@@ -111,7 +109,6 @@ func collectGitInfo(path string) (gitInfo, error)  {
 
         info := gitInfo{
         	LocalPath:  path,
-        	RemoteURLs: origin.URLs,
         	IsClean:    status.IsClean(),
         	Status:     strings.Split(status.String(), "\n"),
         }
