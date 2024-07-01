@@ -3,9 +3,8 @@ package git
 import (
 	"fmt"
 	"os"
-	// "os"
+	"os/exec"
 	"strings"
-	// "github.com/go-git/go-git/v5"
 )
 
 // Build a name for the local checkout of the specified url.
@@ -32,20 +31,15 @@ func buildLocalDirName(url string) string {
 }
 
 func AddRepo(url string, path string) {
+    path = os.Expand(path, os.Getenv)
+
 	localName := buildLocalDirName(url)
-    fmt.Fprintln(os.Stderr, localName)
 
-	// cloneOptions := git.CloneOptions{
-	// 	URL: url,
-	// 	Progress: os.Stdout,
-	// }
-
-    // repo, err := git.PlainClone(path, false, &cloneOptions)
-    // if err != nil {
-    //     fmt.Fprintln(os.Stderr, "An error occured when cloning '" + url + "' into '" + path + "'")
-    // }
-	// git -C repoHome clone gitUrl localName
-	// git -C "$HOME/repos" clone $GIT_URL $PROJECT_DIR
+    cmd := exec.Command("git", "-C", path, "clone", url, localName)
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    err := cmd.Run()
+    if err != nil {
+        fmt.Fprintln(os.Stderr, err.Error())
+    }
 }
-
-// os.Getenv(string Home) for get root
