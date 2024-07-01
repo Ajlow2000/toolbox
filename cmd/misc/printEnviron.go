@@ -1,7 +1,7 @@
 package misc
 
 import (
-	printenviron "github.com/Ajlow2000/toolbox/internal/misc/printEnviron"
+	printenviron "github.com/Ajlow2000/toolbox/app/misc/printEnviron"
 	"github.com/spf13/cobra"
 )
 

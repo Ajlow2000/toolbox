@@ -1,7 +1,7 @@
 package misc
 
 import (
-	printpath "github.com/Ajlow2000/toolbox/internal/misc/printPath"
+	printpath "github.com/Ajlow2000/toolbox/app/misc/printPath"
 	"github.com/spf13/cobra"
 )
 

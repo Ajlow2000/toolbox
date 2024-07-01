@@ -3,7 +3,7 @@ package git
 import (
 	"strings"
 
-	auditdir "github.com/Ajlow2000/toolbox/internal/git/auditDir"
+	auditdir "github.com/Ajlow2000/toolbox/app/git/auditDir"
 	"github.com/spf13/cobra"
 )
 

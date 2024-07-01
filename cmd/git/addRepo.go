@@ -1,7 +1,7 @@
 package git
 
 import (
-	"github.com/Ajlow2000/toolbox/internal/git"
+	addrepo "github.com/Ajlow2000/toolbox/app/git/addRepo"
 	"github.com/spf13/cobra"
 )
 
@@ -25,7 +25,7 @@ var addRepoCmd = &cobra.Command{
         if url == "" {
             cmd.Help()
         } else {
-		    git.AddRepo(url, path)
+		    addrepo.Main(url, path)
         }
 	},
 }
