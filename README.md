@@ -15,12 +15,12 @@
 ## Tools
 
 ### Git
-* [add-repo](./app/addRepo/README.md)
-* [audt-dir](./app/auditDir/README.md)
+* [add-repo](./app/git/addRepo/README.md)
+* [audt-dir](./app/git/auditDir/README.md)
 
 ### Misc
-* [print-path](./app/printPath/README.md)
-* [print-environ](./app/printEnviron/README.md)
+* [print-path](./app/misc/printPath/README.md)
+* [print-environ](./app/misc/printEnviron/README.md)
 
 ## Usage
 I opted for one catch all 'toolbox' binary with namespaced
