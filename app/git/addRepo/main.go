@@ -35,11 +35,50 @@ func Main(url string, path string) {
 
 	localName := buildLocalDirName(url)
 
-    cmd := exec.Command("git", "-C", path, "clone", url, localName)
-    cmd.Stdout = os.Stdout
-    cmd.Stderr = os.Stderr
-    err := cmd.Run()
+    // Clone repo
+    cloneCmd := exec.Command("git", "-C", path, "clone", url, localName)
+    cloneCmd.Stdout = os.Stdout
+    cloneCmd.Stderr = os.Stderr
+    err := cloneCmd.Run()
     if err != nil {
         fmt.Fprintln(os.Stderr, err.Error())
+        return
     }
+
+    // Build destination with proper / divider for linux
+    destination := path
+    if !strings.HasSuffix(destination, "/") {
+        destination = destination + "/"
+    }
+    destination = destination + localName
+
+    // Add .envrc
+    f, err := os.Create(destination + "/" + ".envrc")
+	if err != nil {
+        fmt.Fprintln(os.Stderr, err.Error())
+		return
+	}
+
+	l, err := f.WriteString("use flake")
+	if err != nil {
+        fmt.Fprintln(os.Stderr, err.Error())
+        f.Close()
+		return
+	}
+	err = f.Close()
+	if err != nil {
+        fmt.Fprintln(os.Stderr, err.Error())
+		return
+	}
+
+    // Register with zoxide
+    registerCmd := exec.Command("zoxide", "add", destination)
+    registerCmd.Stdout = os.Stdout
+    registerCmd.Stderr = os.Stderr
+    err = registerCmd.Run()
+    if err != nil {
+        fmt.Fprintln(os.Stderr, err.Error())
+        return
+    }
+
 }
