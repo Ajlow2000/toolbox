@@ -3,7 +3,8 @@ package git
 import (
 	"strings"
 
-	auditdir "github.com/Ajlow2000/toolbox/internal/git/auditDir"
+	auditdir "github.com/Ajlow2000/toolbox/app/git/auditDir"
+	"github.com/Ajlow2000/toolbox/lib"
 	"github.com/spf13/cobra"
 )
 
@@ -11,12 +12,13 @@ var (
     target = ""
     logFile = ""
     ignore = ""
+    auditDirReadme = "./app/git/auditDir/README.md"
 )
 
 var auditDirCmd = &cobra.Command{
-	Use:   "audit-dir",
-	Short: "Generate a report of the status of all git repositories within the specified [dir]",
-	Long: "Logging is disabled until a log file is provided via --log-file",
+	Use: lib.GetToolName(auditDirReadme), 
+	Short: lib.GetShortDesc(auditDirReadme),
+    Long: lib.GetLongDesc(auditDirReadme),
 	Run: func(cmd *cobra.Command, args []string) {
         ignoreList := strings.Split(ignore, ":")
         auditdir.Main(target, ignoreList)
