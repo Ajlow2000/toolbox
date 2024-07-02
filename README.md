@@ -7,8 +7,7 @@
 
   <p align="center">
         A Collection of terminal oriented utilities written in Go that
-        contribute to my ideal Personalized Development
-        Environment
+        contribute to my ideal Personalized Development Environment
   </p>
 </div>
 
