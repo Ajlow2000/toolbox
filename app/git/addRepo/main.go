@@ -58,8 +58,7 @@ func Main(url string, path string) {
         fmt.Fprintln(os.Stderr, err.Error())
 		return
 	}
-
-	l, err := f.WriteString("use flake")
+	_, err = f.WriteString("use flake")
 	if err != nil {
         fmt.Fprintln(os.Stderr, err.Error())
         f.Close()
