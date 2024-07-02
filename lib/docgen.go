@@ -97,3 +97,22 @@ func GetLongDesc(path string) string {
     return desc 
 }
 
+// Parse version number from the version file
+func GetVersion() string {
+    readFile, err := os.Open("./VERSION")
+    if err != nil {
+        fmt.Println(err)
+    }
+    defer readFile.Close()
+
+    fileScanner := bufio.NewScanner(readFile)
+    fileScanner.Split(bufio.ScanLines)
+    version := ""
+
+    for fileScanner.Scan() {
+        version = fileScanner.Text()
+    }
+
+    return version
+}
+

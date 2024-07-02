@@ -14,7 +14,7 @@
 
 buildGoApplication {
   pname = "toolbox";
-  version = "0.1";
+  version = builtins.readFile ./VERSION;
   pwd = ./.;
   src = ./.;
   modules = ./gomod2nix.toml;
