@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/Ajlow2000/toolbox">
-    <img src="images/gopher.png" alt="Logo" width="80" height="80">
+    <img src="images/gopher.png" alt="Logo">
   </a>
 
   <h1 align="center">Toolbox</h1>
