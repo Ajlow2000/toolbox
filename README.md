@@ -13,10 +13,9 @@
 
 ## Tools
 
-### Git
-* [add-repo](./app/git/addRepo/README.md)
-* [audt-dir](./app/git/auditDir/README.md)
-
-### Misc
-* [print-path](./app/misc/printPath/README.md)
-* [print-environ](./app/misc/printEnviron/README.md)
+| Collection | Tool Name | Linux Support | Windows Support |
+| ---------- | --------- | ------------- | --------------- |
+| git        | [`add-repo`](./app/git/addRepo/README.md) | - [ ] | - [ ] |
+| git        | [`audt-dir`](./app/git/auditDir/README.md) | - [ ] | - [ ] |
+| misc       | [`print-path`](./app/misc/printPath/README.md) | - [ ] | - [ ] |
+| misc       | [`print-environ`](./app/misc/printEnviron/README.md) | - [ ] | - [ ] |
