@@ -8,5 +8,6 @@ import (
 )
 
 func main() {
+    fkjdf
 	cmd.Execute()
 }
