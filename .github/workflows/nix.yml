@@ -13,6 +13,6 @@ jobs:
     - uses: actions/checkout@v4
     - uses: cachix/install-nix-action@v27
       with:
-        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+        github_access_token: ${{ secrets.nix }}
     - run: nix-build
     - run: nix flake check
