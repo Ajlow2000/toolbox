@@ -15,15 +15,11 @@ jobs:
     - name: Setup Nix Environment
       uses: cachix/install-nix-action@v27
       with:
-        github_access_token: ${{ secrets.NIX_BUILD_TOKEN }}
+        access_token: ${{ secrets.NIX_BUILD_TOKEN }}
 
     - name: nix flake check
       run: nix flake check
-      with:
-        github_access_token: ${{ secrets.NIX_BUILD_TOKEN }}
 
     - name: nix build
       run: nix build
-      with:
-        github_access_token: ${{ secrets.NIX_BUILD_TOKEN }}
 
