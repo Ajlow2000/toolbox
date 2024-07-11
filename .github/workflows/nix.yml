@@ -20,6 +20,6 @@ jobs:
     - name: nix flake check
       run: nix flake check
 
-    - name:nix build
+    - name: nix build
       run: nix build
 
