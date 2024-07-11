@@ -18,7 +18,6 @@
           callPackage = pkgs.darwin.apple_sdk_11_0.callPackage or pkgs.callPackage;
         in
         {
-            f
           packages.default = callPackage ./. {
             inherit (gomod2nix.legacyPackages.${system}) buildGoApplication;
           };
