@@ -26,6 +26,7 @@ pkgs.mkShell {
     # gomod2nix.packages.${system}.default
     gomod2nix
     nil
+    just
   ];
   packages = [
     goEnv
