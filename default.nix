@@ -15,6 +15,10 @@
 buildGoApplication {
   pname = "toolbox";
   version = builtins.readFile ./VERSION;
+  nativeBuildInputs = [ pkgs.just ];
+  preBuild = ''
+    just prebuild
+  '';
   pwd = ./.;
   src = ./.;
   modules = ./gomod2nix.toml;
