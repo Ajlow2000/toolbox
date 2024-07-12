@@ -15,7 +15,10 @@
 buildGoApplication {
   pname = "toolbox";
   version = builtins.readFile ./VERSION;
-  nativeBuildInputs = [ pkgs.just ];
+  nativeBuildInputs = [ 
+    pkgs.just
+    pkgs.zig
+  ];
   preBuild = ''
     just prebuild
   '';

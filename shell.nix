@@ -27,6 +27,8 @@ pkgs.mkShell {
     gomod2nix
     nil
     just
+    zig
+    zls
   ];
   packages = [
     goEnv
