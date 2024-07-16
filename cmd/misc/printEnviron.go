@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var printEnvironReadme = "./app/misc/printEnviron/README.md"
+var printEnvironReadme = "app/misc/printEnviron/README.md"
 
 var printEnvironCmd = &cobra.Command{
 	Use: lib.GetToolName(printEnvironReadme), 

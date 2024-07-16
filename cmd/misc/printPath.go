@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var printPathReadme = "./app/misc/printPath/README.md"
+var printPathReadme = "app/misc/printPath/README.md"
 
 var printPathCmd = &cobra.Command{
 	Use: lib.GetToolName(printPathReadme), 

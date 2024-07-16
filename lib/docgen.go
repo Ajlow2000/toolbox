@@ -2,17 +2,45 @@ package lib
 
 import (
 	"bufio"
+	"embed"
 	"fmt"
-	"os"
+	"io/fs"
 	"strings"
 )
+
+// FS loaded into memory that help text is parsed from
+var documentation embed.FS
+
+// Set the fs with all relevent readmes.  This needs to be
+// done from main
+func SetDocsFS(fs embed.FS) {
+    documentation = fs
+}
+
+// Convenience function for printing the files that got copied
+// into the documentation embedded fs
+func DebugDocFiles() {
+    fmt.Println("")
+    fmt.Println("DEBUG")
+
+    fs.WalkDir(documentation, ".", func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		fmt.Printf("path=%q, isDir=%v\n", path, d.IsDir())
+		return nil
+	})
+
+    fmt.Println("DEBUG")
+    fmt.Println("")
+}
 
 // Fetch tool name from the specified path
 // 
 // Expects a README.md with the name of the tool 
 // as a markdown h1 for the first line
 func GetToolName(path string) string {
-    readFile, err := os.Open(path)
+    readFile, err := documentation.Open(path)
     if err != nil {
         fmt.Println(err)
     }
@@ -35,7 +63,7 @@ func GetToolName(path string) string {
 // Expects a README.md with the same formatting as LongDesc
 // but parses only the first non header line as the ShortDesc
 func GetShortDesc(path string) string {
-    readFile, err := os.Open(path)
+    readFile, err := documentation.Open(path)
     if err != nil {
         fmt.Println(err)
     }
@@ -66,7 +94,7 @@ func GetShortDesc(path string) string {
 // Expects a README.md with the simple formatting of
 // a h1 and then plaintext for the long description.
 func GetLongDesc(path string) string {
-    readFile, err := os.Open(path)
+    readFile, err := documentation.Open(path)
     if err != nil {
         fmt.Println(err)
     }
@@ -99,7 +127,7 @@ func GetLongDesc(path string) string {
 
 // Parse version number from the version file
 func GetVersion() string {
-    readFile, err := os.Open("./VERSION")
+    readFile, err := documentation.Open("VERSION")
     if err != nil {
         fmt.Println(err)
     }

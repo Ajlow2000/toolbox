@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var miscReadme = "./app/misc/README.md"
+var miscReadme = "app/misc/README.md"
 
 var MiscCmd = &cobra.Command{
 	Use: lib.GetToolName(miscReadme), 

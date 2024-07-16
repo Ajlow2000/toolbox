@@ -12,7 +12,7 @@ var (
     target = ""
     logFile = ""
     ignore = ""
-    auditDirReadme = "./app/git/auditDir/README.md"
+    auditDirReadme = "app/git/auditDir/README.md"
 )
 
 var auditDirCmd = &cobra.Command{

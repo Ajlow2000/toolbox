@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var gitReadme = "./app/git/README.md"
+var gitReadme = "app/git/README.md"
 
 var GitCmd = &cobra.Command{
 	Use: lib.GetToolName(gitReadme), 

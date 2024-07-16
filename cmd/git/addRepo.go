@@ -9,7 +9,7 @@ import (
 var (
     url = "";
     path = "";
-    addRepoReadme = "./app/git/addRepo/README.md"
+    addRepoReadme = "app/git/addRepo/README.md"
 )
 
 var addRepoCmd = &cobra.Command{
