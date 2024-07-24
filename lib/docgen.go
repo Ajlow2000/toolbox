@@ -9,12 +9,12 @@ import (
 )
 
 // FS loaded into memory that help text is parsed from
-var documentation embed.FS
+var documentation *embed.FS
 
 // Set the fs with all relevent readmes.  This needs to be
 // done from main
 func SetDocsFS(fs embed.FS) {
-    documentation = fs
+    documentation = &fs
 }
 
 // Convenience function for printing the files that got copied
@@ -52,7 +52,7 @@ func GetToolName(path string) string {
     for fileScanner.Scan() {
         line := fileScanner.Text()
         if strings.HasPrefix(line, "#") {
-            return strings.Split(line, " ")[1]
+            return strings.Split(line, " ")[1] + "\n"
         }
     }
     return "NAME_NOT_FOUND"
@@ -86,7 +86,7 @@ func GetShortDesc(path string) string {
         
     }
 
-    return desc 
+    return desc + "\n"
 }
 
 // Fetch long description from the specified path.
@@ -122,7 +122,7 @@ func GetLongDesc(path string) string {
     }
 
 
-    return desc 
+    return desc + "\n"
 }
 
 // Parse version number from the version file

@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"os"
-
 	"github.com/Ajlow2000/toolbox/cmd/git"
 	"github.com/Ajlow2000/toolbox/cmd/misc"
 	"github.com/Ajlow2000/toolbox/lib"
@@ -21,11 +19,15 @@ var rootCmd = &cobra.Command{
     Version: lib.GetVersion(),
 }
 
+func Blah() {
+    print("from cmd.Blah(): " + lib.GetToolName("app/misc/README.md"))
+}
+
 func Execute() {
-	err := rootCmd.Execute()
-	if err != nil {
-		os.Exit(1)
-	}
+	// err := rootCmd.Execute()
+	// if err != nil {
+	// 	os.Exit(1)
+	// }
 }
 
 func init() {

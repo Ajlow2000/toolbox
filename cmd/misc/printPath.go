@@ -17,6 +17,10 @@ var printPathCmd = &cobra.Command{
 	},
 }
 
+func Foo() {
+    print("from misc.Foo(): " + lib.GetToolName("app/misc/README.md"))
+}
+
 func init() {
 
 }
