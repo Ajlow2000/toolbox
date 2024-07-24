@@ -16,7 +16,7 @@ var GitCmd = &cobra.Command{
 	},
 }
 
-func init() {
+func Initialize() {
     GitCmd.AddCommand(auditDirCmd)
 	GitCmd.AddCommand(addRepoCmd)
 }

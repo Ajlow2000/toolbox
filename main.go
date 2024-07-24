@@ -6,7 +6,7 @@ package main
 import (
 	"embed"
 
-	"github.com/Ajlow2000/toolbox/foo"
+	"github.com/Ajlow2000/toolbox/cmd"
 	"github.com/Ajlow2000/toolbox/lib"
 )
 
@@ -22,9 +22,5 @@ var docsFS embed.FS
 
 func main() {
     lib.SetDocsFS(docsFS)
-    // lib.DebugDocFiles()
-
-	// cmd.Blah()
-    foo.Baz()
-    // misc.Foo()
+	cmd.Execute()
 }

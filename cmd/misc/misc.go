@@ -6,17 +6,18 @@ import (
 )
 
 var miscReadme = "app/misc/README.md"
+var name string
 
 var MiscCmd = &cobra.Command{
-	Use: lib.GetToolName(miscReadme), 
-	Short: lib.GetShortDesc(miscReadme),
-    Long: lib.GetLongDesc(miscReadme),
+	Use: name, 
+	Short: "bar",
+    Long:  "baz",
 	Run: func(cmd *cobra.Command, args []string) {
         cmd.Help()
 	},
 }
 
-func init() {
+func Initialize() {
     MiscCmd.AddCommand(printPathCmd)
     MiscCmd.AddCommand(printEnvironCmd)
 }

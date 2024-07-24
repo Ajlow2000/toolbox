@@ -1,9 +1,9 @@
 package cmd
 
 import (
-	"github.com/Ajlow2000/toolbox/cmd/git"
+	"os"
+
 	"github.com/Ajlow2000/toolbox/cmd/misc"
-	"github.com/Ajlow2000/toolbox/lib"
 	"github.com/spf13/cobra"
 )
 
@@ -16,25 +16,18 @@ var rootCmd = &cobra.Command{
 	Use:   "toolbox",
 	Short: "Toolbox is a collection of utlities that make my life easier.",
     Long: "Toolbox is a collection of utilities that make my life easier and designed to be explorable and aliased for easier access to high use tools.",
-    Version: lib.GetVersion(),
-}
-
-func Blah() {
-    print("from cmd.Blah(): " + lib.GetToolName("app/misc/README.md"))
+    Version: "x",
 }
 
 func Execute() {
-	// err := rootCmd.Execute()
-	// if err != nil {
-	// 	os.Exit(1)
-	// }
-}
+    misc.Initialize()
+    // git.Initialize()
 
-func init() {
-    // Commands
     rootCmd.AddCommand(misc.MiscCmd)
-    rootCmd.AddCommand(git.GitCmd)
-
+    // rootCmd.AddCommand(git.GitCmd)
+    
+	err := rootCmd.Execute()
+	if err != nil {
+		os.Exit(1)
+	}
 }
-
-
