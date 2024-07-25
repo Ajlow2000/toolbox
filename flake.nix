@@ -1,29 +1,91 @@
 {
-  description = "A basic gomod2nix flake";
+  description = "Zig project flake";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.gomod2nix.url = "github:nix-community/gomod2nix";
-  inputs.gomod2nix.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.gomod2nix.inputs.flake-utils.follows = "flake-utils";
+  inputs = {
+    zig2nix.url = "github:Cloudef/zig2nix";
+    nixpkgs = {
+      type = "github";
+      owner = "nixos";
+      repo = "nixpkgs";
+    };
+  };
 
-  outputs = { self, nixpkgs, flake-utils, gomod2nix }:
-    (flake-utils.lib.eachDefaultSystem
-      (system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
+  outputs = { zig2nix, nixpkgs, ... }: let
+    flake-utils = zig2nix.inputs.flake-utils;
+    pkgs = nixpkgs.legacyPackages.x86_64-linux;
+  in (flake-utils.lib.eachDefaultSystem (system: let
+      # Zig flake helper
+      # Check the flake.nix in zig2nix project for more options:
+      # <https://github.com/Cloudef/zig2nix/blob/master/flake.nix>
+      env = zig2nix.outputs.zig-env.${system} { zig = zig2nix.outputs.packages.${system}.zig.master.bin; };
+      system-triple = env.lib.zigTripleFromString system;
+    in with builtins; with env.lib; with env.pkgs.lib; rec {
+      # nix build .#target.{zig-target}
+      # e.g. nix build .#target.x86_64-linux-gnu
+      packages.target = genAttrs allTargetTriples (target: env.packageForTarget target ({
+        src = cleanSource ./.;
 
-          # The current default sdk for macOS fails to compile go projects, so we use a newer one for now.
-          # This has no effect on other platforms.
-          callPackage = pkgs.darwin.apple_sdk_11_0.callPackage or pkgs.callPackage;
-        in
-        {
-          packages.default = callPackage ./. {
-            inherit (gomod2nix.legacyPackages.${system}) buildGoApplication;
-          };
-          devShells.default = callPackage ./shell.nix {
-            inherit (gomod2nix.legacyPackages.${system}) mkGoEnv gomod2nix;
-          };
-        })
-    );
+        nativeBuildInputs = with env.pkgs; [];
+        buildInputs = with env.pkgsForTarget target; [];
+
+        # Smaller binaries and avoids shipping glibc.
+        zigPreferMusl = true;
+
+        # This disables LD_LIBRARY_PATH mangling, binary patching etc...
+        # The package won't be usable inside nix.
+        zigDisableWrap = true;
+      } // optionalAttrs (!pathExists ./build.zig.zon) {
+        pname = "toolbox";
+        version = "0.0.0";
+      }));
+
+      # nix build .
+      packages.default = packages.target.${system-triple}.override {
+        # Prefer nix friendly settings.
+        zigPreferMusl = false;
+        zigDisableWrap = false;
+      };
+
+      # For bundling with nix bundle for running outside of nix
+      # example: https://github.com/ralismark/nix-appimage
+      apps.bundle.target = genAttrs allTargetTriples (target: let
+        pkg = packages.target.${target};
+      in {
+        type = "app";
+        program = "${pkg}/bin/toolbox";
+      });
+
+      # default bundle
+      apps.bundle.default = apps.bundle.target.${system-triple};
+
+      # nix run .
+      # nix run .#build
+      apps.build = env.app [] "zig build \"$@\"";
+
+      # nix run .#test
+      apps.test = env.app [] "zig build test -- \"$@\"";
+
+      # nix run .#docs
+      apps.docs = env.app [] "zig build docs -- \"$@\"";
+
+      # nix run .#deps
+      apps.deps = env.showExternalDeps;
+
+      # nix run .#zon2json
+      apps.zon2json = env.app [env.zon2json] "zon2json \"$@\"";
+
+      # nix run .#zon2json-lock
+      apps.zon2json-lock = env.app [env.zon2json-lock] "zon2json-lock \"$@\"";
+
+      # nix run .#zon2nix
+      apps.zon2nix = env.app [env.zon2nix] "zon2nix \"$@\"";
+
+      # nix develop
+      devShells.default = env.mkShell {
+          buildInputs = with pkgs; [
+            zls
+            nil
+          ];
+      };
+    }));
 }
