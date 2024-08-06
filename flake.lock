@@ -16,9 +16,44 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1722813957,
+        "narHash": "sha256-IAoYyYnED7P8zrBFMnmp7ydaJfwTnwcnqxUElC1I26Y=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "cb9a96f23c491c081b38eab96d22fa958043c9fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "printPath": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1722966238,
+        "narHash": "sha256-S+7eWXWYTjwDyerARgfn+AcHzs3Hpnn7zlaBAuCmmrQ=",
+        "owner": "Ajlow2000",
+        "repo": "print-path",
+        "rev": "18c43982a0b0d1c547885618dd0a55ea5aa1253d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Ajlow2000",
+        "repo": "print-path",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "printPath": "printPath"
       }
     }
   },
