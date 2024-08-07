@@ -11,9 +11,14 @@
             url = "github:Ajlow2000/audit-dir";
             flake = true;
         };
+
+        addRepo = {
+            url = "github:Ajlow2000/add-repo";
+            flake = true;
+        };
     };
 
-    outputs = { self, nixpkgs, printPath, auditDir }:
+    outputs = { self, nixpkgs, printPath, auditDir, addRepo}:
     let
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
@@ -22,6 +27,7 @@
         packages.${system} = {
             print-path = printPath.packages.${system}.default;
             audit-dir = auditDir.packages.${system}.default;
+            add-repo = addRepo.packages.${system}.default;
         };
 
 
