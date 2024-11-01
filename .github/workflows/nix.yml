@@ -28,3 +28,6 @@ jobs:
 
     - name: nix build .#add-repo
       run: nix build .#add-repo
+
+    - name: nix build .#tmux-session-manager
+      run: nix build .#tmux-session-manager

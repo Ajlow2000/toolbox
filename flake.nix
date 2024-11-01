@@ -21,6 +21,11 @@
             url = "github:Ajlow2000/conventional-commit";
             flake = true;
         };
+
+        tmuxSessionManager = {
+            url = "github:Ajlow2000/tmux-session-manager";
+            flake = true;
+        };
     };
 
     outputs = { self, 
@@ -28,7 +33,8 @@
         printPath, 
         auditDir, 
         addRepo,
-        conventionalCommit
+        conventionalCommit,
+        tmuxSessionManager
     }:
     let
         system = "x86_64-linux";
@@ -40,6 +46,7 @@
             audit-dir = auditDir.packages.${system}.default;
             add-repo = addRepo.packages.${system}.default;
             conventional-commit = conventionalCommit.packages.${system}.default;
+            tmux-session-manager = tmuxSessionManager.packages.${system}.default;
         };
 
 

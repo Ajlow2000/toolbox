@@ -224,6 +224,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_6": {
+      "locked": {
+        "lastModified": 1730200266,
+        "narHash": "sha256-l253w0XMT8nWHGXuXqyiIC/bMvh1VRszGXgdpQlfhvU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "807e9154dcb16384b1b765ebe9cd2bba2ac287fd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "printPath": {
       "inputs": {
         "nixpkgs": "nixpkgs_5"
@@ -248,7 +264,8 @@
         "auditDir": "auditDir",
         "conventionalCommit": "conventionalCommit",
         "nixpkgs": "nixpkgs_4",
-        "printPath": "printPath"
+        "printPath": "printPath",
+        "tmuxSessionManager": "tmuxSessionManager"
       }
     },
     "systems": {
@@ -278,6 +295,24 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tmuxSessionManager": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "lastModified": 1730480913,
+        "narHash": "sha256-NFDcZOLIU9EQpyYHRa3Z+0qpzHYB50U97wCI9f6Xcjk=",
+        "owner": "Ajlow2000",
+        "repo": "tmux-session-manager",
+        "rev": "130009cb48b94bcceb863873eece77fa852ef744",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Ajlow2000",
+        "repo": "tmux-session-manager",
         "type": "github"
       }
     }
