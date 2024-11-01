@@ -14,4 +14,3 @@
 | git        | [`add-repo`](https://github.com/Ajlow2000/add-repo)           | ✅            | ❌              | Go       |
 | git        | [`audt-dir`](https://github.com/Ajlow2000/audit-dir)          | ✅            | ❌              | Go       |
 | misc       | [`print-path`](https://github.com/Ajlow2000/print-path)       | ✅            | ❌              | Bash     |
-| misc       | [`print-environ`](https://github.com/Ajlow2000/print-environ) | ✅            | ❌              | |
