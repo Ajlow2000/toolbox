@@ -1,29 +1,44 @@
 {
-  description = "A basic gomod2nix flake";
+    inputs = {
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.gomod2nix.url = "github:nix-community/gomod2nix";
-  inputs.gomod2nix.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.gomod2nix.inputs.flake-utils.follows = "flake-utils";
+        printPath = {
+            url = "github:Ajlow2000/print-path";
+            flake = true;
+        };
 
-  outputs = { self, nixpkgs, flake-utils, gomod2nix }:
-    (flake-utils.lib.eachDefaultSystem
-      (system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
+        auditDir = {
+            url = "github:Ajlow2000/audit-dir";
+            flake = true;
+        };
 
-          # The current default sdk for macOS fails to compile go projects, so we use a newer one for now.
-          # This has no effect on other platforms.
-          callPackage = pkgs.darwin.apple_sdk_11_0.callPackage or pkgs.callPackage;
-        in
-        {
-          packages.default = callPackage ./. {
-            inherit (gomod2nix.legacyPackages.${system}) buildGoApplication;
-          };
-          devShells.default = callPackage ./shell.nix {
-            inherit (gomod2nix.legacyPackages.${system}) mkGoEnv gomod2nix;
-          };
-        })
-    );
+        addRepo = {
+            url = "github:Ajlow2000/add-repo";
+            flake = true;
+        };
+    };
+
+    outputs = { self, nixpkgs, printPath, auditDir, addRepo}:
+    let
+        system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+        packages.${system} = {
+            print-path = printPath.packages.${system}.default;
+            audit-dir = auditDir.packages.${system}.default;
+            add-repo = addRepo.packages.${system}.default;
+        };
+
+
+        devShell.x86_64-linux =
+            pkgs.mkShell {
+                buildInputs = with pkgs;[
+                    nil
+                ];
+            };
+    };
 }
+
+
+

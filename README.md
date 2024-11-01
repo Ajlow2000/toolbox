@@ -1,8 +1,4 @@
 <div align="center">
-  <a href="https://github.com/Ajlow2000/toolbox">
-    <img src="images/gopher.png" alt="Logo">
-  </a>
-
   <h1 align="center">Toolbox</h1>
 
   <p align="center">
@@ -13,9 +9,9 @@
 
 ## Tools
 
-| Collection | Tool Name                                    | Linux Support | Windows Support |
-| ---------- | -------------------------------------------- | ------------- | --------------- |
-| git        | [`add-repo`](./app/git/addRepo)              | ✅            | ❌              |
-| git        | [`audt-dir`](./app/git/auditDir)             | ✅            | ❌              |
-| misc       | [`print-path`](./app/misc/printPath)         | ✅            | ❌              |
-| misc       | [`print-environ`](./app/misc/printEnviron)   | ✅            | ❌              |
+| Collection | Tool Name                                                     | Linux Support | Windows Support | Language |
+| ---------- | ----------------------------------------------------------    | ------------- | --------------- | -------- |
+| git        | [`add-repo`](https://github.com/Ajlow2000/add-repo)           | ✅            | ❌              | Go       |
+| git        | [`audt-dir`](https://github.com/Ajlow2000/audit-dir)          | ✅            | ❌              | Go       |
+| misc       | [`print-path`](https://github.com/Ajlow2000/print-path)       | ✅            | ❌              | Bash     |
+| misc       | [`print-environ`](https://github.com/Ajlow2000/print-environ) | ✅            | ❌              | |
