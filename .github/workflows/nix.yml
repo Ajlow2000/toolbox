@@ -20,6 +20,11 @@ jobs:
     - name: nix flake check
       run: nix flake check
 
-    - name: nix build
-      run: nix build
+    - name: nix build .#print-path
+      run: nix build .#print-path
 
+    - name: nix build .#audit-dir 
+      run: nix build .#audit-dir 
+
+    - name: nix build .#add-repo
+      run: nix build .#add-repo
