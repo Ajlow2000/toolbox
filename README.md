@@ -9,8 +9,9 @@
 
 ## Tools
 
-| Collection | Tool Name                                                     | Linux Support | Windows Support | Language |
-| ---------- | ----------------------------------------------------------    | ------------- | --------------- | -------- |
-| git        | [`add-repo`](https://github.com/Ajlow2000/add-repo)           | ✅            | ❌              | Go       |
-| git        | [`audt-dir`](https://github.com/Ajlow2000/audit-dir)          | ✅            | ❌              | Go       |
-| misc       | [`print-path`](https://github.com/Ajlow2000/print-path)       | ✅            | ❌              | Bash     |
+| Collection | Tool Name                                                                    | Linux Support | Windows Support | Language |
+| ---------- | ---------------------------------------------------------------------------- | ------------- | --------------- | -------- |
+| git        | [`add-repo`](https://github.com/Ajlow2000/add-repo)                          | ✅            | ❌              | Go       |
+| git        | [`audt-dir`](https://github.com/Ajlow2000/audit-dir)                         | ✅            | ❌              | Go       |
+| git        | [`conventional-commit`](https://github.com/Ajlow2000/conventional-commit)    | ✅            | ❌              | Bash     |
+| misc       | [`print-path`](https://github.com/Ajlow2000/print-path)                      | ✅            | ❌              | Bash     |

@@ -16,9 +16,20 @@
             url = "github:Ajlow2000/add-repo";
             flake = true;
         };
+
+        conventionalCommit = {
+            url = "github:Ajlow2000/conventional-commit";
+            flake = true;
+        };
     };
 
-    outputs = { self, nixpkgs, printPath, auditDir, addRepo}:
+    outputs = { self, 
+        nixpkgs, 
+        printPath, 
+        auditDir, 
+        addRepo,
+        conventionalCommit
+    }:
     let
         system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
@@ -28,6 +39,7 @@
             print-path = printPath.packages.${system}.default;
             audit-dir = auditDir.packages.${system}.default;
             add-repo = addRepo.packages.${system}.default;
+            conventional-commit = conventionalCommit.packages.${system}.default;
         };
 
 
