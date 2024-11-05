@@ -194,11 +194,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1722813957,
-        "narHash": "sha256-IAoYyYnED7P8zrBFMnmp7ydaJfwTnwcnqxUElC1I26Y=",
+        "lastModified": 1730531603,
+        "narHash": "sha256-Dqg6si5CqIzm87sp57j5nTaeBbWhHFaVyG7V6L8k3lY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cb9a96f23c491c081b38eab96d22fa958043c9fa",
+        "rev": "7ffd9ae656aec493492b44d0ddfb28e79a1ea25d",
         "type": "github"
       },
       "original": {
@@ -245,11 +245,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1722966238,
-        "narHash": "sha256-S+7eWXWYTjwDyerARgfn+AcHzs3Hpnn7zlaBAuCmmrQ=",
+        "lastModified": 1730438971,
+        "narHash": "sha256-1lk0CbcyxSFL+YSy4jibugB24ZkBp6gS9/IyNXZCRIA=",
         "owner": "Ajlow2000",
         "repo": "print-path",
-        "rev": "18c43982a0b0d1c547885618dd0a55ea5aa1253d",
+        "rev": "ed675c683e6bbba821addb49ddb03231520c5b81",
         "type": "github"
       },
       "original": {
@@ -303,11 +303,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1730480913,
-        "narHash": "sha256-NFDcZOLIU9EQpyYHRa3Z+0qpzHYB50U97wCI9f6Xcjk=",
+        "lastModified": 1730771812,
+        "narHash": "sha256-9Vcnbem8wqWHBoHe57KpqMTsD1PZyNSuQ2breqZPciA=",
         "owner": "Ajlow2000",
         "repo": "tmux-session-manager",
-        "rev": "130009cb48b94bcceb863873eece77fa852ef744",
+        "rev": "384f9b08e653c8a1738dcb0eb1665d4c0c66484e",
         "type": "github"
       },
       "original": {
