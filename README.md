@@ -11,7 +11,7 @@
 
 | Collection | Tool Name                                                                    | Linux Support | Windows Support | Language |
 | ---------- | ---------------------------------------------------------------------------- | ------------- | --------------- | -------- |
-| git        | [`add-repo`](https://github.com/Ajlow2000/add-repo)                          | ✅            | ❌              | Go       |
+| git        | [`repo-manager`](https://github.com/Ajlow2000/repo-manager)                  | ✅            | ❌              | Go       |
 | git        | [`audt-dir`](https://github.com/Ajlow2000/audit-dir)                         | ✅            | ❌              | Go       |
 | git        | [`conventional-commit`](https://github.com/Ajlow2000/conventional-commit)    | ✅            | ❌              | Bash     |
 | misc       | [`print-path`](https://github.com/Ajlow2000/print-path)                      | ✅            | ❌              | Bash     |

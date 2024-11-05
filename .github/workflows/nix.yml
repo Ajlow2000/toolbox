@@ -26,8 +26,8 @@ jobs:
     - name: nix build .#audit-dir 
       run: nix build .#audit-dir 
 
-    - name: nix build .#add-repo
-      run: nix build .#add-repo
+    - name: nix build .#repo-manager
+      run: nix build .#repo-manager
 
     - name: nix build .#tmux-session-manager
       run: nix build .#tmux-session-manager

@@ -12,8 +12,8 @@
             flake = true;
         };
 
-        addRepo = {
-            url = "github:Ajlow2000/add-repo";
+        repoManager = {
+            url = "github:Ajlow2000/repo-manager";
             flake = true;
         };
 
@@ -32,7 +32,7 @@
         nixpkgs, 
         printPath, 
         auditDir, 
-        addRepo,
+        repoManager,
         conventionalCommit,
         tmuxSessionManager
     }:
@@ -44,7 +44,7 @@
         packages.${system} = {
             print-path = printPath.packages.${system}.default;
             audit-dir = auditDir.packages.${system}.default;
-            add-repo = addRepo.packages.${system}.default;
+            repo-manager = repoManager.packages.${system}.default;
             conventional-commit = conventionalCommit.packages.${system}.default;
             tmux-session-manager = tmuxSessionManager.packages.${system}.default;
         };

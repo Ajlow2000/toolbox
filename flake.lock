@@ -1,30 +1,10 @@
 {
   "nodes": {
-    "addRepo": {
+    "auditDir": {
       "inputs": {
         "flake-utils": "flake-utils",
         "gomod2nix": "gomod2nix",
         "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1722991654,
-        "narHash": "sha256-NLBUbkFaPcggmUXUrs8HF8ckW/3s/GHk0n8HMeoQdgo=",
-        "owner": "Ajlow2000",
-        "repo": "add-repo",
-        "rev": "3e2d9994a371e5b1e7272b5964814f64437ab826",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Ajlow2000",
-        "repo": "add-repo",
-        "type": "github"
-      }
-    },
-    "auditDir": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "gomod2nix": "gomod2nix_2",
-        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1722989293,
@@ -42,7 +22,7 @@
     },
     "conventionalCommit": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1730442232,
@@ -97,11 +77,11 @@
     "gomod2nix": {
       "inputs": {
         "flake-utils": [
-          "addRepo",
+          "auditDir",
           "flake-utils"
         ],
         "nixpkgs": [
-          "addRepo",
+          "auditDir",
           "nixpkgs"
         ]
       },
@@ -122,11 +102,11 @@
     "gomod2nix_2": {
       "inputs": {
         "flake-utils": [
-          "auditDir",
+          "repoManager",
           "flake-utils"
         ],
         "nixpkgs": [
-          "auditDir",
+          "repoManager",
           "nixpkgs"
         ]
       },
@@ -162,22 +142,6 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1720542800,
-        "narHash": "sha256-ZgnNHuKV6h2+fQ5LuqnUaqZey1Lqqt5dTUAiAnqH0QQ=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "feb2849fdeb70028c70d73b848214b00d324a497",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1730200266,
         "narHash": "sha256-l253w0XMT8nWHGXuXqyiIC/bMvh1VRszGXgdpQlfhvU=",
         "owner": "nixos",
@@ -192,7 +156,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1730531603,
         "narHash": "sha256-Dqg6si5CqIzm87sp57j5nTaeBbWhHFaVyG7V6L8k3lY=",
@@ -208,7 +172,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1722813957,
         "narHash": "sha256-IAoYyYnED7P8zrBFMnmp7ydaJfwTnwcnqxUElC1I26Y=",
@@ -219,6 +183,22 @@
       },
       "original": {
         "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1720542800,
+        "narHash": "sha256-ZgnNHuKV6h2+fQ5LuqnUaqZey1Lqqt5dTUAiAnqH0QQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "feb2849fdeb70028c70d73b848214b00d324a497",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
@@ -242,7 +222,7 @@
     },
     "printPath": {
       "inputs": {
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1730438971,
@@ -258,13 +238,33 @@
         "type": "github"
       }
     },
+    "repoManager": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "gomod2nix": "gomod2nix_2",
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1722991654,
+        "narHash": "sha256-NLBUbkFaPcggmUXUrs8HF8ckW/3s/GHk0n8HMeoQdgo=",
+        "owner": "Ajlow2000",
+        "repo": "repo-manager",
+        "rev": "3e2d9994a371e5b1e7272b5964814f64437ab826",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Ajlow2000",
+        "repo": "repo-manager",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "addRepo": "addRepo",
         "auditDir": "auditDir",
         "conventionalCommit": "conventionalCommit",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_3",
         "printPath": "printPath",
+        "repoManager": "repoManager",
         "tmuxSessionManager": "tmuxSessionManager"
       }
     },
