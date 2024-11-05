@@ -245,11 +245,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1722991654,
-        "narHash": "sha256-NLBUbkFaPcggmUXUrs8HF8ckW/3s/GHk0n8HMeoQdgo=",
+        "lastModified": 1730836110,
+        "narHash": "sha256-GYM72VutSdDQws/3SuqQzO2zjmq8smpXOP9wmKEUn5I=",
         "owner": "Ajlow2000",
         "repo": "repo-manager",
-        "rev": "3e2d9994a371e5b1e7272b5964814f64437ab826",
+        "rev": "b6d78feb02eb1246a06632e0b6667f67daed1b7e",
         "type": "github"
       },
       "original": {
