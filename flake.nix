@@ -26,6 +26,11 @@
             url = "github:Ajlow2000/tmux-session-manager";
             flake = true;
         };
+
+        mediaUtilities = {
+            url = "git@github.com:Ajlow2000/media-utilities";
+            flake = true;
+        };
     };
 
     outputs = { self, 
@@ -34,7 +39,8 @@
         auditDir, 
         repoManager,
         conventionalCommit,
-        tmuxSessionManager
+        tmuxSessionManager,
+        mediaUtilities
     }:
     let
         system = "x86_64-linux";
@@ -47,6 +53,7 @@
             repo-manager = repoManager.packages.${system}.default;
             conventional-commit = conventionalCommit.packages.${system}.default;
             tmux-session-manager = tmuxSessionManager.packages.${system}.default;
+            media-utilities = mediaUtilities.packages.${system}.default;
         };
 
 
