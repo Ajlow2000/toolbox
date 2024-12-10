@@ -28,7 +28,7 @@
         };
 
         mediaUtilities = {
-            url = "git@github.com:Ajlow2000/media-utilities";
+            url = "github:Ajlow2000/media-utilities";
             flake = true;
         };
     };

@@ -16,5 +16,5 @@
 | git        | [`conventional-commit`](https://github.com/Ajlow2000/conventional-commit)    | ✅            | ❌              | Bash     |
 | misc       | [`print-path`](https://github.com/Ajlow2000/print-path)                      | ✅            | ❌              | Bash     |
 | misc       | [`tmux-session-manager`](https://github.com/Ajlow2000/tmux-session-manager)  | ✅            | ❌              | Bash     |
-| misc       | [`media-utilities`](https://github.com/Ajlow2000/media-utilities)            | ✅            | ❌              | Bash     |
+| misc       | [`media-utilities`](https://github.com/Ajlow2000/media-utilities)            | ✅            | ❌              | Go       |
 
