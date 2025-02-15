@@ -31,3 +31,6 @@ jobs:
 
     - name: nix build .#tmux-session-manager
       run: nix build .#tmux-session-manager
+
+    - name: nix build .#zellij-session-manager
+      run: nix build .#zellij-session-manager

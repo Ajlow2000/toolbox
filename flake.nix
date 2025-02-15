@@ -27,6 +27,11 @@
             flake = true;
         };
 
+        zellijSessionManager = {
+            url = "github:Ajlow2000/zellij-session-manager";
+            flake = true;
+        };
+
         mediaUtilities = {
             url = "github:Ajlow2000/media-utilities";
             flake = true;
@@ -40,6 +45,7 @@
         repoManager,
         conventionalCommit,
         tmuxSessionManager,
+        zellijSessionManager,
         mediaUtilities
     }:
     let
@@ -53,6 +59,7 @@
             repo-manager = repoManager.packages.${system}.default;
             conventional-commit = conventionalCommit.packages.${system}.default;
             tmux-session-manager = tmuxSessionManager.packages.${system}.default;
+            zellij-session-manager = zellijSessionManager.packages.${system}.default;
             media-utilities = mediaUtilities.packages.${system}.default;
         };
 

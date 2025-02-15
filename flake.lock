@@ -237,11 +237,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1733759999,
-        "narHash": "sha256-463SNPWmz46iLzJKRzO3Q2b0Aurff3U1n0nYItxq7jU=",
+        "lastModified": 1739446958,
+        "narHash": "sha256-+/bYK3DbPxMIvSL4zArkMX0LQvS7rzBKXnDXLfKyRVc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a73246e2eef4c6ed172979932bc80e1404ba2d56",
+        "rev": "2ff53fe64443980e139eaa286017f53f88336dd0",
         "type": "github"
       },
       "original": {
@@ -299,6 +299,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_8": {
+      "locked": {
+        "lastModified": 1739020877,
+        "narHash": "sha256-mIvECo/NNdJJ/bXjNqIh8yeoSjVLAuDuTUzAo7dzs8Y=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "a79cfe0ebd24952b580b1cf08cd906354996d547",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "printPath": {
       "inputs": {
         "nixpkgs": "nixpkgs_5"
@@ -345,7 +361,8 @@
         "nixpkgs": "nixpkgs_4",
         "printPath": "printPath",
         "repoManager": "repoManager",
-        "tmuxSessionManager": "tmuxSessionManager"
+        "tmuxSessionManager": "tmuxSessionManager",
+        "zellijSessionManager": "zellijSessionManager"
       }
     },
     "systems": {
@@ -408,6 +425,24 @@
       "original": {
         "owner": "Ajlow2000",
         "repo": "tmux-session-manager",
+        "type": "github"
+      }
+    },
+    "zellijSessionManager": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_8"
+      },
+      "locked": {
+        "lastModified": 1739590231,
+        "narHash": "sha256-oTa1kZ6oAC5HoS1st3AxWdnhlYuPOWXC3H0z/genogU=",
+        "owner": "Ajlow2000",
+        "repo": "zellij-session-manager",
+        "rev": "910db270434e04ab0a44a61e1f3a4778a31b4b31",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Ajlow2000",
+        "repo": "zellij-session-manager",
         "type": "github"
       }
     }
