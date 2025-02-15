@@ -433,11 +433,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1739597163,
-        "narHash": "sha256-zPk6IMQtd99eubGKSJCNxvinzvFSnIoNO4W2/J0FhEs=",
+        "lastModified": 1739597402,
+        "narHash": "sha256-GA90m43ohYNaayopDk/1FFJjeeiCtURbq8iolVvsoN8=",
         "owner": "Ajlow2000",
         "repo": "zellij-session-manager",
-        "rev": "4e28c9d64f734eaad89840bcdafb384b254b7d3a",
+        "rev": "02ffbca39f849e47bbdd87a8fb45acf47f321db1",
         "type": "github"
       },
       "original": {
