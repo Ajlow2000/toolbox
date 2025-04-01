@@ -13,7 +13,7 @@
 | ---------- | ----------------------------------------------------------------------------     | ------------- | --------------- | -------- |
 | git        | [`repo-manager`](https://github.com/Ajlow2000/repo-manager)                      | ✅            | ❌              | Go       |
 | git        | [`audt-dir`](https://github.com/Ajlow2000/audit-dir)                             | ✅            | ❌              | Go       |
-| git        | [`conventional-commit`](https://github.com/Ajlow2000/conventional-commit)        | ✅            | ❌              | Bash     |
+| git        | [`conventional-commit`](https://github.com/Ajlow2000/conventional-commit)        | ✅            | ✅              | Rust     |
 | misc       | [`print-path`](https://github.com/Ajlow2000/print-path)                          | ✅            | ❌              | Bash     |
 | misc       | [`tmux-session-manager`](https://github.com/Ajlow2000/tmux-session-manager)      | ✅            | ❌              | Bash     |
 | misc       | [`zellij-session-manager`](https://github.com/Ajlow2000/zellij-session-manager)  | ✅            | ❌              | Bash     |
